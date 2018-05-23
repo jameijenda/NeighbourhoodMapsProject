@@ -15,15 +15,14 @@ var markers = [
       }
     ];
 
-function initMap() {
+function ViewModel() {
     
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: -34.905603, lng: -56.186499},
         zoom: 16
     });
    
-    
-    
+       
 
     markers.forEach(function(marker){
           new google.maps.Marker({
@@ -31,6 +30,12 @@ function initMap() {
           map : map,
       });
     });
+
+    
+
+
+
+
     
     /*var infowindow = new google.maps.InfoWindow({
         content: "Do you ever feel, like a plastic bag"
@@ -41,3 +46,7 @@ function initMap() {
     });*/
 };
 
+
+function render() {
+    ko.applyBindings(new ViewModel());
+}
