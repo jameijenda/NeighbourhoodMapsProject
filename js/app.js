@@ -34,25 +34,17 @@ function ViewModel() {
         position: place.coords,
         animation: google.maps.Animation.DROP
       });
-      this.marker.addListener('click', self.markerAnimation);
+      this.marker.addListener('click', function(){
+        this.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout((function() {
+            this.setAnimation(null);
+        }).bind(this), 1400);
+      });  
       self.markers.push(this.marker); 
       
       
     });
-
-    this.markerAnimation = function() {
-      this.setAnimation(google.maps.Animation.BOUNCE);
-    };
-        
-         
-          
-    /*var infowindow = new google.maps.InfoWindow({
-        content: "Do you ever feel like a plastic bag"
-    });
-    
-    marker.addListener('click', function(){
-        infowindow.open(map, marker);
-    });*/
+                          
 };
 
 
