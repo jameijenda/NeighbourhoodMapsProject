@@ -27,10 +27,10 @@ function ViewModel() {
     });
    
    
-    
+
 
     places.forEach(function(place){
-      this.markerCoords = place.coords;
+      /*this.markerCoords = place.coords;*/
 
       this.marker = new google.maps.Marker({
         map: map,
@@ -40,18 +40,31 @@ function ViewModel() {
 
       var contentString = place.title;
 
+      var lat = this.marker.position.lat;
+      var lng = this.marker.position.lng;
+
       this.InfoWindow = new google.maps.InfoWindow({
           content: contentString
         });
 
       self.markers.push(this.marker); 
 
-
+      
       this.marker.addListener('click', function(){
         this.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout((function() {
             this.setAnimation(null);
-        }).bind(this), 1400);
+        }).bind(this), 1200);
+        
+        
+        //I'm getting a param error while using the lat and lng variables defined above
+
+      
+        fetch('https://api.foursquare.com/v2/venues/search?ll=${lat},${lng}&client_id=SVZ5OCK2BVJSNEOMS3PRUVZGIBD52HTF0YO4WJSNHNXYMHZ1&client_secret=GNW4DFY2KRSIVOKQHRI221XBF3QNF2RMRFDZROKOYRSDZ4AI&v=20180323')
+        .then(function(response){
+          return response.json();
+        });
+     
 
         InfoWindow.setContent(contentString);
         InfoWindow.open(map, this);
@@ -59,6 +72,8 @@ function ViewModel() {
       });              
     
     });
+
+
                           
 };
 
