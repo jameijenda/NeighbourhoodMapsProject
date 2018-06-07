@@ -3,7 +3,7 @@ var map;
 var places = [
       {
         title: 'Automovil Club del Uruguay',
-        coords:{lat: -34.9035340070997, lng: -56.1890231974923
+        coords:{lat: -34.904759, lng: -56.189162
         },       
       },
       {
@@ -33,6 +33,9 @@ function ViewModel() {
         zoom: 16
     });
 
+    this.InfoWindow = new google.maps.InfoWindow({
+      content: "test"
+    });
     
 
     places.forEach(function(place){
@@ -51,19 +54,19 @@ function ViewModel() {
       var title = place.title;
 
 
-      this.InfoWindow = new google.maps.InfoWindow();
+      
 
       self.markers.push(this.marker); 
 
       
-      this.marker.addListener('click', function(){
+
+      
+      marker.addListener('click', function(){
         this.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout((function() {
             this.setAnimation(null);
         }).bind(this), 1200);
-        
-        
-      
+
         fetch(`https://api.foursquare.com/v2/venues/search?ll=${lat},${lng}&client_id=SVZ5OCK2BVJSNEOMS3PRUVZGIBD52HTF0YO4WJSNHNXYMHZ1&client_secret=GNW4DFY2KRSIVOKQHRI221XBF3QNF2RMRFDZROKOYRSDZ4AI&query=${title}&v=20180323`)
         
         .then(function(response){
@@ -71,22 +74,27 @@ function ViewModel() {
           return json;
         })
         
-        .then(function(myJson){
+        .then(function test(myJson){
           self.businessName = myJson.response.venues[0].name;
           self.street = myJson.response.venues[0].location.address;
           self.category = myJson.response.venues[0].categories[0].name;
+
+          /* This console.log is a test to see if the right values come through */
+
           console.log(self.businessName, self.street, self.category);
 
           self.infoWindowContent = `<h2 class="businessName"> ${self.businessName}</h2>                   
                                     <h3 class="category"> ${self.category}</h3>
                                     <p4 class="address"> ${self.street}</p4>`;
-          });
+          })
         
-         
+          
+          setTimeout((function() {
+            self.InfoWindow.setContent(self.infoWindowContent);      
+            self.InfoWindow.open(map, this);;
+          }).bind(this), 500);
 
-          InfoWindow.setContent(self.infoWindowContent);
-          InfoWindow.open(map, this);
-
+                              
       }); 
 
     
