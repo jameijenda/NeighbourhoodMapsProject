@@ -49,7 +49,7 @@ API Course, Lesson 1 -->
                 
 
       <ul id="menu" data-bind="foreach: filteredResults">>
-        <a href="#"><li class="nav-item" data-bind="text: title"></li></a>
+        <a href="#"><li class="nav-item" data-bind="text: title, click: $parent.test.b"></li></a>
       </ul>
 
 
