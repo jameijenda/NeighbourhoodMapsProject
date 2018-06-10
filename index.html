@@ -6,11 +6,59 @@ API Course, Lesson 1 -->
   <head>
     <style type="text/css">
       html, body { height: 100%; margin: 0; padding: 0; }
-      #map { height: 100%; }
+      #map { height: 50%; width: 50% }
    </style>
+   <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
     <div id="map"></div>
+    <nav role="navigation">
+    
+    <input class="search" data-bind="textInput: searchInput, valueUpdate: 'afterkeydown'" placeholder="Search Locations...">
+    <div id="menuToggle">
+    <!--
+    A fake / hidden checkbox is used as click reciever,
+    so you can use the :checked selector on it.
+    -->
+      <input type="checkbox" />
+
+
+    
+    <!--
+    Some spans to act as a hamburger.
+    
+    They are acting like a real hamburger,
+    not that McDonalds stuff.
+    -->
+      <span></span>
+      <span></span>
+      <span></span>
+    
+    <!--
+    Too bad the menu has to be inside of the button
+    but hey, it's pure CSS magic.
+    -->
+     
+        
+       
+
+ 
+    
+        
+    
+                
+
+      <ul id="menu" data-bind="foreach: filteredResults">>
+        <a href="#"><li class="nav-item" data-bind="text: title"></li></a>
+      </ul>
+
+
+    </div>  
+  </div>
+</nav>
+      <!--<div id="test">
+        <input class="search" data-bind="textInput: searchInput, valueUpdate: 'afterkeydown'">
+      </div>-->
 
 
 

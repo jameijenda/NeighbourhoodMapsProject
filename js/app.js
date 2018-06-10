@@ -27,6 +27,7 @@ function ViewModel() {
 
 
     this.markers = [];
+    this.filteredResults = [];
     
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: -34.905603, lng: -56.186499},
@@ -34,7 +35,7 @@ function ViewModel() {
     });
 
     this.InfoWindow = new google.maps.InfoWindow({
-      content: "test"
+      content: "Placeholder"
     });
     
 
@@ -43,6 +44,7 @@ function ViewModel() {
       this.marker = new google.maps.Marker({
         map: map,
         position: place.coords,
+        title: place.title,
         animation: google.maps.Animation.DROP
       });
 
@@ -87,6 +89,12 @@ function ViewModel() {
                                     <h3 class="category"> ${self.category}</h3>
                                     <p4 class="address"> ${self.street}</p4>`;
           })
+
+          .catch(function(){
+            alert(`
+                  Oops! The Foursquare API could not be loaded.
+                  Please reload your page and hope for the best`)
+          })
         
           
           setTimeout((function() {
@@ -99,6 +107,50 @@ function ViewModel() {
 
     
     });
+
+    this.searchInput = ko.observable('');
+
+    this.mySearch = ko.computed(function() {
+      
+      self.markers.forEach(function(index){
+        var markerTitle = index;
+        if (markerTitle.title.toLowerCase().includes(self.searchInput().toLowerCase())) {
+          self.filteredResults.push(markerTitle);
+          index.setVisible(true);
+        } else {
+          index.setVisible(false);
+        }
+      })
+      return self.filteredResults;
+    }, this);
+
+
+    /*
+
+    Search function:
+
+    Create Ko.Observable upstairs.
+
+    Here, create ko.computed function.
+
+    Create empty array.
+
+    forEach loop. {
+    marker location = current marker.
+
+    if (markerLocation(or current marker) .includes this.searchOption() 
+
+    push the resut to markerLocation;
+    and make marker visible) 
+    else {
+      make marker invisible
+    }
+
+    return result.
+
+    yayyyyy
+
+    }*/
 
    
                           
