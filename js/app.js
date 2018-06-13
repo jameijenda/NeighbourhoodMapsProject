@@ -27,7 +27,7 @@ function ViewModel() {
 
 
     this.markers = [];
-    this.filteredResults = [];
+    /*this.filteredResults = [];*/
 
     
     this.createMapAndMarkers = function() { 
@@ -132,12 +132,12 @@ function ViewModel() {
     
     
     
-    
+    self.filteredResults = "";
 
-    this.searchInput = ko.observable('');
+    this.searchInput = ko.observable("");
 
     this.mySearch = ko.computed(function() {
-      
+      self.filteredResults = [];
       self.markers.forEach(function(index){
         var markerTitle = index;
         if (markerTitle.title.toLowerCase().includes(self.searchInput().toLowerCase())) {
@@ -148,7 +148,7 @@ function ViewModel() {
         }
       })
       return self.filteredResults;
-    }, this);
+    });
 
 };
 

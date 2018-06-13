@@ -9,14 +9,14 @@
  * prefixes.
  */
 
+
 body
-{
+{ height: 100%;
   margin: 0;
   padding: 0;
   
   /* make it look decent enough */
   background: #232323;
-  color: #cdcdcd;
   font-family: "Avenir Next", "Avenir", sans-serif;
 }
 
@@ -33,12 +33,30 @@ a:hover
   color: tomato;
 }
 
+
+.container{
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.navigation{
+  width: 70px;
+}
+
+#map {
+  height: 100%; 
+  width: 100%;
+  order: 1;
+}
+
 #menuToggle
 {
   display: block;
   position: relative;
   top: 50px;
   left: 50px;
+  margin-left: -35px;
   
   z-index: 1;
   
@@ -46,7 +64,7 @@ a:hover
   user-select: none;
 }
 
-#menuToggle input
+#menuToggle .stripes
 {
   display: block;
   width: 40px;
@@ -100,17 +118,17 @@ a:hover
  * Transform all the slices of hamburger
  * into a crossmark.
  */
-#menuToggle input:checked ~ span
+#menuToggle .stripes:checked ~ span
 {
   opacity: 1;
   transform: rotate(45deg) translate(-2px, -1px);
-  background: #232323;
+  background: #ededed;
 }
 
 /*
  * But let's hide the middle one.
  */
-#menuToggle input:checked ~ span:nth-last-child(3)
+#menuToggle .stripes:checked ~ span:nth-last-child(3)
 {
   opacity: 0;
   transform: rotate(0deg) scale(0.2, 0.2);
@@ -119,7 +137,7 @@ a:hover
 /*
  * Ohyeah and the last one should go the other direction
  */
-#menuToggle input:checked ~ span:nth-last-child(2)
+#menuToggle .stripes:checked ~ span:nth-last-child(2)
 {
   transform: rotate(-45deg) translate(0, -1px);
 }
@@ -131,12 +149,13 @@ a:hover
 #menu
 {
   position: absolute;
-  width: 300px;
-  margin: -100px 0 0 -50px;
+  width: 280px;
+  height: 1200px;
+  margin: -78px 0 0 -50px;
   padding: 50px;
   padding-top: 125px;
   
-  background: #ededed;
+  background: #232323;
   list-style-type: none;
   -webkit-font-smoothing: antialiased;
   /* to stop flickering of text in safari */
@@ -151,12 +170,24 @@ a:hover
 {
   padding: 10px 0;
   font-size: 22px;
+  color: white;
+}
+
+#markersList {
+  padding-top: 20px;
+  list-style-type: none;
+}
+
+#markersList {
+  padding: 18px 5px;
+  font-size: 22px;
+  color: white;  
 }
 
 /*
  * And let's slide it in from the left
  */
-#menuToggle input:checked ~ ul
+#menuToggle .stripes:checked ~ ul
 {
   transform: none;
 }
@@ -164,3 +195,4 @@ a:hover
 .app_title{
   padding-top: 5px;
 }
+
