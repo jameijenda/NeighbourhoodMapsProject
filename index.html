@@ -1,65 +1,45 @@
-
-
-<!-- This is the corresponding "starter code" for 07_Markers/Infowindows in Udacity and Google's Maps
-API Course, Lesson 1 -->
 <html>
   <head>
+   <meta charset="utf-8">
+   <title>Neighbourhood Project</title>
    <link rel="stylesheet" type="text/css" href="css/normalize.css">
    <link rel="stylesheet" type="text/css" href="css/style.css">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
     <div class="container">
       <div id="map"></div>
-      <nav class="navigation">
-          
-          <div id="menuToggle">
-          
+        <nav class="navigation">         
+         <!-- The CSS Side NavBar was borrowed from Mr. Erik Terwan at https://codepen.io/erikterwan/pen/EVzeRP -->
+         <div id="menuToggle">
 
-        
-          <!--
-          A fake / hidden checkbox is used as click reciever,
-          so you can use the :checked selector on it.
-          -->
           <input type="checkbox" class="stripes" />  
-          <!--
-          Some spans to act as a hamburger.
-          
-          They are acting like a real hamburger,
-          not that McDonalds stuff.
-          -->
+
           <span></span>
           <span></span>
           <span></span>
-      
-          <!--
-          Too bad the menu has to be inside of the button
-          but hey, it's pure CSS magic.
-          -->
-          
+               
           <ul id="menu"> 
+          <!-- KO Js is used via data-binds to filter the list after doing a search-->
           <input class="search" data-bind="textInput: searchInput, valueUpdate: 'afterkeydown'" placeholder="Search Locations...">
+          <!-- And here again to populate the list and bind via click event the animationAndInfo function-->
           <ul id="markersList" data-bind="foreach: mySearch">
-             
-          <a href="#"><li class="nav-item" data-bind="text: title, click: $parent.animationAndInfo"></li></a>
+          
+         
+            <a href="#"><li class="nav-item" data-bind="text: title, click: $parent.animationAndInfo"></li></a>
 
           </ul> 
-
-        </div>>        
+          <img class="foursquareLogo" src="img/Powered-by-Foursquare-full-color-300_preview.png" alt="Powered By Foursquare!">
+        </div>        
       </nav>  
     </div>
   
- 
-
-     <script src='js/lib/knockout-3.4.2.js'></script>
+    <script src='js/lib/knockout-3.4.2.js'></script>
 
     <script src="js/app.js"></script>
-    
-    
+      
     <script async defer
      src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyBlq646prP3G1TL9hkaCBCreu5zlbA5HE4&callback=render">     
-    </script>
-
-
-    
+    </script>  
   </body>
 </html>

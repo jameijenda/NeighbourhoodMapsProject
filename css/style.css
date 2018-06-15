@@ -1,3 +1,10 @@
+
+
+/* The CSS Side NavBar was borrowed from Mr. Erik Terwan at https://codepen.io/erikterwan/pen/EVzeRP /*
+
+
+
+
 /*
  * Made by Erik Terwan
  * 24th of November 2015
@@ -14,6 +21,7 @@ body
 { height: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden;
   
   /* make it look decent enough */
   background: #232323;
@@ -22,9 +30,7 @@ body
 
 a
 {
-  text-decoration: none;
-  color: #232323;
-  
+  text-decoration: none;  
   transition: color 0.3s ease;
 }
 
@@ -33,14 +39,13 @@ a:hover
   color: tomato;
 }
 
-
-.container{
+.container {
   display: flex;
   height: 100%;
   width: 100%;
 }
 
-.navigation{
+.navigation {
   width: 70px;
 }
 
@@ -50,8 +55,7 @@ a:hover
   order: 1;
 }
 
-#menuToggle
-{
+#menuToggle {
   display: block;
   position: relative;
   top: 50px;
@@ -64,8 +68,7 @@ a:hover
   user-select: none;
 }
 
-#menuToggle .stripes
-{
+#menuToggle .stripes {
   display: block;
   width: 40px;
   height: 32px;
@@ -84,8 +87,7 @@ a:hover
 /*
  * Just a quick hamburger
  */
-#menuToggle span
-{
+#menuToggle span {
   display: block;
   width: 33px;
   height: 4px;
@@ -104,13 +106,11 @@ a:hover
               opacity 0.55s ease;
 }
 
-#menuToggle span:first-child
-{
+#menuToggle span:first-child {
   transform-origin: 0% 0%;
 }
 
-#menuToggle span:nth-last-child(2)
-{
+#menuToggle span:nth-last-child(2) {
   transform-origin: 0% 100%;
 }
 
@@ -118,8 +118,7 @@ a:hover
  * Transform all the slices of hamburger
  * into a crossmark.
  */
-#menuToggle .stripes:checked ~ span
-{
+#menuToggle .stripes:checked ~ span {
   opacity: 1;
   transform: rotate(45deg) translate(-2px, -1px);
   background: #ededed;
@@ -128,8 +127,7 @@ a:hover
 /*
  * But let's hide the middle one.
  */
-#menuToggle .stripes:checked ~ span:nth-last-child(3)
-{
+#menuToggle .stripes:checked ~ span:nth-last-child(3) {
   opacity: 0;
   transform: rotate(0deg) scale(0.2, 0.2);
 }
@@ -137,8 +135,7 @@ a:hover
 /*
  * Ohyeah and the last one should go the other direction
  */
-#menuToggle .stripes:checked ~ span:nth-last-child(2)
-{
+#menuToggle .stripes:checked ~ span:nth-last-child(2) {
   transform: rotate(-45deg) translate(0, -1px);
 }
 
@@ -146,8 +143,7 @@ a:hover
  * Make this absolute positioned
  * at the top left of the screen
  */
-#menu
-{
+#menu {
   position: absolute;
   width: 280px;
   height: 1200px;
@@ -166,11 +162,15 @@ a:hover
   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
 }
 
-#menu li
-{
-  padding: 10px 0;
-  font-size: 22px;
+#menu li {
+  padding: 14px 0;
+  font-size: 20px;
   color: white;
+  margin-left: 12px;
+}
+
+#menu li:hover {
+  color: tomato;
 }
 
 #markersList {
@@ -187,12 +187,91 @@ a:hover
 /*
  * And let's slide it in from the left
  */
-#menuToggle .stripes:checked ~ ul
-{
+#menuToggle .stripes:checked ~ ul  {
   transform: none;
 }
 
-.app_title{
+.app_title {
   padding-top: 5px;
 }
 
+.foursquareLogo {
+  width: 70%;
+  margin-top: 62px;
+  margin-left: 130px;
+}
+
+.search {
+  margin-bottom: 59px;
+  margin-top: -16px;
+  width: 300px;
+  height: 50px;
+  background: #7aa89f;
+  border: none;
+  font-size: 10pt;
+  float: left;
+  color: white;
+  padding-left: 15px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 30px;       
+}
+
+.search::placeholder {
+  color: white;
+}
+
+.search:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+h4 {
+  margin-top: 23px;
+}
+
+p.adress {
+    margin-top: -7px;
+}
+
+@media screen and (max-width: 600px) {
+  #map {
+    zoom: 0.75;
+  }
+
+  #menu{
+    width: 180px;
+  }
+
+  .search {
+    margin-bottom: -20px;
+    margin-top: -40px;
+    width: 205px;
+    height: 36px;
+    background: #7aa89f;
+    border: none;
+    font-size: 9pt;
+    float: left;
+    color: white;
+    padding-left: 15px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 30px; 
+  }
+
+  #menu li {
+    padding: 10px 0;
+    margin-top: -3px;
+    font-size: 17px;
+    color: white;
+    margin-left: 12px;
+  }  
+
+  .foursquareLogo {
+    width: 85%;
+    margin-top: 2px;
+    margin-left: 72px;
+  }
+}

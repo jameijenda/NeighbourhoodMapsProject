@@ -1,39 +1,73 @@
-var map;
+let map;
 
-var places = [
+const places = [
       {
-        title: 'Automovil Club del Uruguay',
-        coords:{lat: -34.904759, lng: -56.189162
+        title: `McDonald's`,
+        coords:{lat: -34.9054529, lng: -56.18679
         },       
       },
       {
         title: 'Grupocine Torre de los Profesionales',
-        coords:{lat: -34.90273716428635, lng: -56.1880319023078
+        coords:{lat: -34.9046349, lng: -56.188449
         },
       },
       {
         title: 'El Gaucho',
-        coords:{lat: -34.90524373610124, lng: -56.18509797993519},    
+        coords:{lat: -34.905423, lng: -56.185117},   
         },
       {
         title: 'Subway',
-        coords:{lat: -34.90608759593457, lng: -56.19157126828292},    
+        coords:{lat: -34.906261, lng: -56.1919268},    
+        },
+      {
+        title: 'Ruffino',
+        coords:{lat: -34.9069357, lng: -56.1908627},     
+        },
+      {
+        title: 'Il Mondo della Pizza',
+        coords:{lat: -34.9063418, lng: -56.1964289},    
+        },  
+      {
+        title: 'El Fogon',
+        coords:{lat: -34.9071491, lng: -56.1929876},     
+        },
+      {
+        title: 'El Lobizon',
+        coords:{lat: -34.9073619, lng: -56.1899601},    
+        }, 
+      {
+        title: 'Bar Bremen',
+        coords:{lat: -34.9095246, lng: -56.1874328},    
+        }, 
+      {
+        title: 'Maldonado Bar',
+        coords:{lat: -34.908673, lng: -56.178496},    
+        },
+      {
+        title: `Empanadas D'La Ribera `,
+        coords:{lat: -34.903361, lng: -56.1808996},    
+        },
+      {
+        title: 'Chesterhouse',
+        coords:{lat: -34.9051213, lng: -56.2001099},    
         }
     ];
 
+  
+
 function ViewModel() {
 
-    var self = this;
+    const self = this;
 
 
     this.markers = [];
-    /*this.filteredResults = [];*/
 
-    
+    /* This function displays the map, creates the marker and the InfoWindow which content will be filled out later */
+
     this.createMapAndMarkers = function() { 
 
       map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.905603, lng: -56.186499},
+          center: {lat: -34.9057345, lng: -56.1913148},
           zoom: 16
       });
 
@@ -67,7 +101,7 @@ function ViewModel() {
     };
 
           
-      
+    /* This function sets both the marker's animation and the infoWindow's content.*/
 
     this.animationAndInfo = function() {
       self.getAPIDataAndPopulate(this);
@@ -84,22 +118,22 @@ function ViewModel() {
 
       
 
-
+    /* This function retrieves the info. from Foursquare's API and then formats the infoWindow's text. */
 
 
     this.getAPIDataAndPopulate = function(data) {
 
 
-          var lat = data.getPosition().lat();
-          var lng = data.getPosition().lng();
-          var title = data.title;
+          const lat = data.getPosition().lat();
+          const lng = data.getPosition().lng();
+          const title = data.title;
 
           // Foursquare API call
 
       fetch(`https://api.foursquare.com/v2/venues/search?ll=${lat},${lng}&client_id=SVZ5OCK2BVJSNEOMS3PRUVZGIBD52HTF0YO4WJSNHNXYMHZ1&client_secret=GNW4DFY2KRSIVOKQHRI221XBF3QNF2RMRFDZROKOYRSDZ4AI&query=${title}&v=20180323`)
       
       .then(function(response){
-        var json = response.json();
+        const json = response.json();
         return json;
       })
       
@@ -108,13 +142,10 @@ function ViewModel() {
         self.street = myJson.response.venues[0].location.address;
         self.category = myJson.response.venues[0].categories[0].name;
 
-        /* This console.log is a test to see if the right values come through */
-
-        console.log(self.businessName, self.street, self.category);
-
         self.infoWindowContent = `<h2 class="businessName"> ${self.businessName}</h2>                   
                                   <h3 class="category"> ${self.category}</h3>
-                                  <p4 class="address"> ${self.street}</p4>`;
+                                  <h4>Adress:</h4>
+                                  <p class="address"> ${self.street}</p>`;
         })
 
         .catch(function(){
@@ -130,7 +161,7 @@ function ViewModel() {
 
     
     
-    
+    /* This function uses the power of KO Js to filter the list after performing a search */
     
     self.filteredResults = "";
 
@@ -139,7 +170,7 @@ function ViewModel() {
     this.mySearch = ko.computed(function() {
       self.filteredResults = [];
       self.markers.forEach(function(index){
-        var markerTitle = index;
+        let markerTitle = index;
         if (markerTitle.title.toLowerCase().includes(self.searchInput().toLowerCase())) {
           self.filteredResults.push(markerTitle);
           index.setVisible(true);
@@ -152,8 +183,7 @@ function ViewModel() {
 
 };
 
-  
-                       
+                 
 
 
 function render() {
