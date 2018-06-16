@@ -108,25 +108,20 @@ function ViewModel() {
       this.setAnimation(google.maps.Animation.BOUNCE);
       setTimeout((function() {
           this.setAnimation(null);
-      }).bind(this), 1200);
-
-      setTimeout((function() {
-          self.InfoWindow.setContent(self.infoWindowContent);      
-          self.InfoWindow.open(map, this);;
-        }).bind(this), 500);
-    };      
+      }).bind(this), 1200);                   
+    };
 
       
 
     /* This function retrieves the info. from Foursquare's API and then formats the infoWindow's text. */
 
 
-    this.getAPIDataAndPopulate = function(data) {
+    this.getAPIDataAndPopulate = function(marker) {
 
 
-          const lat = data.getPosition().lat();
-          const lng = data.getPosition().lng();
-          const title = data.title;
+          const lat = marker.getPosition().lat();
+          const lng = marker.getPosition().lng();
+          const title = marker.title;
 
           // Foursquare API call
 
@@ -146,15 +141,17 @@ function ViewModel() {
                                   <h3 class="category"> ${self.category}</h3>
                                   <h4>Adress:</h4>
                                   <p class="address"> ${self.street}</p>`;
-        })
-
-        .catch(function(){
+      
+        self.InfoWindow.setContent(self.infoWindowContent);
+        self.InfoWindow.open(map, marker);
+      
+      })
+      
+      .catch(function(){
           alert(`
                 Oops! The Foursquare API could not be loaded.
-                Please reload your page and hope for the best`)
-        });
-
-
+                Please reload your page and hope for the best`);
+      });
     };
 
     this.createMapAndMarkers();
@@ -177,13 +174,18 @@ function ViewModel() {
         } else {
           index.setVisible(false);
         }
-      })
+      });
       return self.filteredResults;
     });
 
-};
+}
 
-                 
+
+function mapsError() {
+    alert(
+        'There was an error while loading Google Maps. Please reload the page and cross your fingers!'
+    );
+};
 
 
 function render() {
